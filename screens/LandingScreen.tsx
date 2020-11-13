@@ -1,10 +1,56 @@
-import React from "react";
+import React, {useState, useEffect, useReducer} from "react";
 import {View,Text,StyleSheet,Dimensions, Image} from "react-native";
+import * as Location from "expo-location";
 import Pin from "../icons/Pin";
 
     const screenWidth = Dimensions.get("screen").width;
 
 export const LandingScreen = () => {
+
+    const [error, setError] = useState("");
+    const [address, setAddress] = useState();
+    const [displayAdress, setDisplayAddress] = useState("Oczekiwanie na lokalizacje");
+   
+    useEffect(() => {
+
+
+        (async () => {
+
+            let { status } = await Location.requestPermissionsAsync();
+
+            if (status !== 'granted'){
+                setError('Permission to access location is not granted')
+            }
+
+            let location: any = await Location.getCurrentPositionAsync({});
+
+            const { coords } = location
+
+            if(coords){
+
+                const { latitude, longitude} = coords;
+
+                let addressResponse: any = await Location.reverseGeocodeAsync({ latitude, longitude})
+
+                for(let item of addressResponse){
+                    setAddress(item)
+                    let currentAddress = `${item.city} ${item.street} ${item.name}`
+                    setDisplayAddress(currentAddress)
+
+                    return;
+                }
+
+
+            }else{
+               
+            }
+
+        })();
+
+
+
+    }, [])
+
     return (
         <View style={styles.container}>
             <View style={styles.navigation}></View>
@@ -15,7 +61,7 @@ export const LandingScreen = () => {
                 </View>
                 <Text style={styles.adressTitle}>Adres Przesyłki</Text>
             </View>
-                <Text style={styles.adressInfo}>Oczekiwanie na lokalizacje</Text>
+    <Text style={styles.adressInfo}>{displayAdress}</Text>
             </View>
             <View style={styles.footer}></View> 
         </View>
