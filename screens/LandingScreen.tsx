@@ -32,7 +32,7 @@ navigation: {
 },
 adressContainer:{
     width: screenWidth - 100,
-    borderBottomColor: "#3373bd",
+    borderBottomColor: "#97BDFC",
     borderBottomWidth: 0.7,
     padding: 5,
     marginBottom: 10,
