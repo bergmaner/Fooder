@@ -2,11 +2,13 @@ import React, {useState, useEffect, useReducer} from "react";
 import {View,Text,StyleSheet,Dimensions, Image} from "react-native";
 import * as Location from "expo-location";
 import Pin from "../icons/Pin";
+import { useNavigation } from "../utils";
 
     const screenWidth = Dimensions.get("screen").width;
 
 export const LandingScreen = () => {
 
+    const { navigate } = useNavigation();
     const [error, setError] = useState("");
     const [address, setAddress] = useState();
     const [displayAdress, setDisplayAddress] = useState("Oczekiwanie na lokalizacje");
@@ -36,7 +38,11 @@ export const LandingScreen = () => {
                     setAddress(item)
                     let currentAddress = `${item.city} ${item.street} ${item.name}`
                     setDisplayAddress(currentAddress)
-
+                    if(currentAddress.length > 0){
+                        setTimeout(() => {
+                            navigate("homeStack");
+                        }, 1000);
+                    }
                     return;
                 }
 
@@ -59,7 +65,7 @@ export const LandingScreen = () => {
             <View style={styles.pinContainer}>
                 <Pin/>
                 </View>
-                <Text style={styles.adressTitle}>Adres Przesyłki</Text>
+                <Text style={styles.adressTitle}>Adres zamówienia</Text>
             </View>
     <Text style={styles.adressInfo}>{displayAdress}</Text>
             </View>
@@ -81,18 +87,22 @@ adressContainer:{
     borderBottomColor: "#97BDFC",
     borderBottomWidth: 0.7,
     padding: 5,
+    marginTop: -100,
     marginBottom: 10,
-    alignItems: "center"
+    alignItems: "center",
 },
 adressInfo: {
     fontSize: 20,
     fontWeight: "200",
-    color: "#7F7F7F"
+    color: "#7F7F7F",
+    paddingTop: 5
 },
 adressTitle:{
     fontSize: 22,
     fontWeight: "700",
     color: "#7D7D7D",
+    paddingBottom: 5,
+    paddingTop: 5
 
 },
 pinContainer:{
