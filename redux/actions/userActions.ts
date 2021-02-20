@@ -11,11 +11,11 @@ export interface UpdateUserError{
     payload: any
 }
 
-export type userAction = UpdateLocation | UpdateUserError;
+export type UserAction = UpdateLocation | UpdateUserError;
 
 export const onUpdateLocation = (location: any) => {
 
-    return async (dispatch: Dispatch<userAction>) => {
+    return async (dispatch: Dispatch<UserAction>) => {
         try{
             dispatch({
                 type: "ON_UPDATE_LOCATION",

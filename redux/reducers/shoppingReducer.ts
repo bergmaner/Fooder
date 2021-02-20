@@ -1,4 +1,21 @@
-const ShoppingReducer = () => {
+import { ShoppingAction } from "../actions";
+import { ShoppingState, FoodAvailability } from "../models";
+
+const initialState: ShoppingState = {
+    availability: {} as FoodAvailability
+}
+
+const ShoppingReducer = ( state: ShoppingState = initialState, action: ShoppingAction ) => {
+
+    switch(action.type){
+
+        case "ON_AVAILABILITY":
+            return{
+                ...state,
+                availability: action.payload
+            }
+        default: return state;
+    }
 
 }
 

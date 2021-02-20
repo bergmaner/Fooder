@@ -3,8 +3,11 @@ import {View,Text,StyleSheet,Dimensions, Image} from "react-native";
 import * as Location from "expo-location";
 import Pin from "../icons/Pin";
 import { useNavigation } from "../utils";
+import { connect } from "react-redux";
+import {} from "../redux";
 
-    const screenWidth = Dimensions.get("screen").width;
+
+const screenWidth = Dimensions.get("screen").width;
 
 export const LandingScreen = () => {
 

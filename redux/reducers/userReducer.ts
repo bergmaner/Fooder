@@ -1,4 +1,4 @@
-import { userAction } from "../actions";
+import { UserAction } from "../actions";
 import { UserModel, UserState } from "../models";
 
 const initialState: UserState = {
@@ -7,7 +7,7 @@ const initialState: UserState = {
     error: undefined
 }
 
-const UserReducer = ( state: UserState = initialState, action: userAction ) => {
+const UserReducer = ( state: UserState = initialState, action: UserAction ) => {
 
     switch(action.type){
 

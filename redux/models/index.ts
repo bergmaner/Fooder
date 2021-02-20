@@ -15,9 +15,6 @@ export interface FoodModel{
     image: [string]
 }
 
-export interface UserModel{
-
-}
 
 export interface Restaurant{
     _id: string,
@@ -48,4 +45,8 @@ export interface UserState{
     user: UserModel,
     location: string | undefined,
     error: string | undefined
+}
+
+export interface ShoppingState{
+    availability: FoodAvailability
 }
