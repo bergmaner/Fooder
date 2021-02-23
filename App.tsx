@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { HomeScreen } from "./screens/HomeScreen";
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View,  TouchableOpacity } from 'react-native';
 import { Provider } from "react-redux";
+import Svg, { Path } from 'react-native-svg';
 import { store } from "./redux";
 import { LandingScreen } from "./screens/LandingScreen";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
@@ -10,6 +11,7 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { NavItem } from './components/NavItem';
 
 const switchNavigator = createSwitchNavigator({
 
@@ -30,10 +32,12 @@ const switchNavigator = createSwitchNavigator({
         HomePage: HomeScreen
       }),
       navigationOptions: {
+        
         tabBarIcon: ({ focused, tintColor }) => {
-          return <MaterialCommunityIcons name="home" size={24} />
+          return  NavItem({focused: true, icon:  <MaterialCommunityIcons name="home" size={24}/>});
         }
       }
+    
     },
 
     Offer: {
@@ -42,7 +46,7 @@ const switchNavigator = createSwitchNavigator({
       }),
       navigationOptions: {
         tabBarIcon: ({ focused, tintColor }) => {
-          return <MaterialIcons name="local-offer" size={24}/>
+          return NavItem({focused: focused, icon:  <MaterialCommunityIcons name="home" size={24} />});
         }
       }
     },
@@ -81,3 +85,4 @@ export default function App() {
     </Provider>
   );
 }
+
