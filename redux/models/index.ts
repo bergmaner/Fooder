@@ -43,10 +43,24 @@ export interface UserModel{
 
 export interface UserState{
     user: UserModel,
-    location: string | undefined,
+    location: AddressModel,
     error: string | undefined
 }
 
 export interface ShoppingState{
     availability: FoodAvailability
+}
+
+export interface AddressModel{
+    postalCode: string,
+    country: string,
+    isoCountryCode: string,
+    subregion: string,
+    city: string,
+    street: string,
+    district: string,
+    name: string,
+    region: string,
+    timezone: string
+
 }

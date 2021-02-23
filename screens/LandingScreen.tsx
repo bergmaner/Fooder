@@ -4,12 +4,20 @@ import * as Location from "expo-location";
 import Pin from "../icons/Pin";
 import { useNavigation } from "../utils";
 import { connect } from "react-redux";
-import {} from "../redux";
+import { onUpdateLocation, UserState, AppState } from "../redux";
+import { UserReducer } from "../redux/reducers/userReducer";
 
 
 const screenWidth = Dimensions.get("screen").width;
 
-export const LandingScreen = () => {
+interface LandingProps{
+    userReducer: UserState,
+    onUpdateLocation: Function
+}
+
+export const _LandingScreen: React.FC<LandingProps> = (props) => {
+
+    const { onUpdateLocation, userReducer } = props;
 
     const { navigate } = useNavigation();
     const [error, setError] = useState("");
@@ -29,18 +37,19 @@ export const LandingScreen = () => {
 
             let location: any = await Location.getCurrentPositionAsync({});
 
-            const { coords } = location
+            const { coords } = location;
 
             if(coords){
 
                 const { latitude, longitude} = coords;
 
-                let addressResponse: any = await Location.reverseGeocodeAsync({ latitude, longitude})
+                let addressResponse: any = await Location.reverseGeocodeAsync({ latitude, longitude});
 
                 for(let item of addressResponse){
-                    setAddress(item)
-                    let currentAddress = `${item.city} ${item.street} ${item.name}`
-                    setDisplayAddress(currentAddress)
+                    setAddress(item);
+                    onUpdateLocation(item);
+                    let currentAddress = `${item.city} ${item.street} ${item.name}`;
+                    setDisplayAddress(currentAddress);
                     if(currentAddress.length > 0){
                         setTimeout(() => {
                             navigate("homeStack");
@@ -121,3 +130,11 @@ footer:{
     flex:1,
 }
 });
+
+const mapToStateProps = (state: AppState) =>({
+    userReducer: state.userReducer
+})
+
+const LandingScreen = connect(mapToStateProps, { onUpdateLocation })(_LandingScreen);
+
+export { LandingScreen };
